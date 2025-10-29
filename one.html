@@ -1,0 +1,738 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart HVAC Carbon Emission Monitoring System</title>
+    <style>
+        /* (your entire original CSS remains unchanged — 100% same as before) */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+
+        nav .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #2d6a4f;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #333;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #2d6a4f;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(135deg, #1b4332 0%, #2d6a4f 50%, #52b788 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: moveGrid 20s linear infinite;
+        }
+
+        @keyframes moveGrid {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            padding: 2rem;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: white;
+            color: #2d6a4f;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Section Styles */
+        section {
+            padding: 5rem 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #1b4332;
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 3rem;
+            font-size: 1.1rem;
+        }
+
+        /* Overview Section */
+        .overview {
+            background: #f8f9fa;
+        }
+
+        .overview-content {
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            color: #2d6a4f;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Hardware Components */
+        .hardware {
+            background: linear-gradient(135deg, #d8f3dc 0%, #b7e4c7 100%);
+        }
+
+        .components-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .component-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 4px solid #2d6a4f;
+            transition: all 0.3s;
+        }
+
+        .component-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .component-card h3 {
+            color: #2d6a4f;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Working Principle */
+        .working {
+            background: white;
+        }
+
+        .steps {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .step {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 15px;
+            transition: all 0.3s;
+        }
+
+        .step:hover {
+            background: #d8f3dc;
+        }
+
+        .step-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #2d6a4f;
+            min-width: 60px;
+        }
+
+        .step-content h3 {
+            color: #1b4332;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Impact Section */
+        .impact {
+            background: linear-gradient(135deg, #1b4332 0%, #2d6a4f 100%);
+            color: white;
+        }
+
+        .impact .section-title,
+        .impact .section-subtitle {
+            color: white;
+        }
+
+        .impact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .impact-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s;
+        }
+
+        .impact-card:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-5px);
+        }
+
+        .impact-card h3 {
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .inspiration {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            font-style: italic;
+        }
+
+        /* Dashboard Preview */
+        .dashboard {
+            background: #f8f9fa;
+        }
+
+        .dashboard-mockup {
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            margin-top: 2rem;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .metric {
+            text-align: center;
+            padding: 2rem;
+            background: linear-gradient(135deg, #d8f3dc 0%, #b7e4c7 100%);
+            border-radius: 15px;
+        }
+
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #1b4332;
+        }
+
+        .metric-label {
+            color: #666;
+            margin-top: 0.5rem;
+        }
+
+        .dashboard-quote {
+            text-align: center;
+            font-size: 1.3rem;
+            color: #2d6a4f;
+            font-weight: bold;
+            margin-top: 2rem;
+        }
+
+        /* Team Section */
+        .team {
+            background: white;
+            text-align: center;
+        }
+
+        .team-info {
+            background: #f8f9fa;
+            padding: 3rem;
+            border-radius: 20px;
+            max-width: 600px;
+            margin: 2rem auto;
+        }
+
+        .team-info h3 {
+            color: #2d6a4f;
+            margin-bottom: 0.5rem;
+            font-size: 1.5rem;
+        }
+
+        .team-info p {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        /* Contact Section */
+        .contact {
+            background: linear-gradient(135deg, #52b788 0%, #2d6a4f 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .contact .section-title {
+            color: white;
+        }
+
+        .contact-form {
+            max-width: 500px;
+            margin: 2rem auto;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .contact-btn {
+            background: white;
+            color: #2d6a4f;
+            padding: 1rem 3rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .contact-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            background: #1b4332;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            nav ul {
+                display: none;
+            }
+
+            .step {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <div class="logo">🌿 Smart HVAC</div>
+            <ul>
+                <li><a href="#overview">Overview</a></li>
+                <li><a href="#hardware">Hardware</a></li>
+                <li><a href="#impact">Impact</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Towards Greener Buildings — Smart HVAC Carbon Emission Monitoring</h1>
+            <p>Track, analyze, and optimize your air conditioning system's performance while reducing carbon emissions.</p>
+            <a href="#dashboard" class="btn">View Dashboard</a>
+        </div>
+    </section>
+
+    <!-- Overview Section -->
+    <section id="overview" class="overview">
+        <div class="container">
+            <h2 class="section-title">Project Overview</h2>
+            <p class="section-subtitle">Intelligent monitoring for sustainable buildings</p>
+            
+            <div class="overview-content">
+                <p>The HVAC Carbon Emission Monitoring System is designed to monitor and control the air conditioning systems in commercial buildings. It measures energy usage, indoor air quality (CO₂ levels), and calculates the corresponding carbon emissions in real time.</p>
+                <p>By analyzing data, the system helps optimize HVAC operation, improve comfort, and support sustainability goals.</p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🌬️</div>
+                    <h3>Air Quality Monitoring</h3>
+                    <p>Real-time CO₂ level tracking for optimal indoor environment</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Energy Analytics</h3>
+                    <p>Comprehensive power consumption analysis and insights</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">♻️</div>
+                    <h3>Carbon Tracking</h3>
+                    <p>Precise carbon footprint calculation and reporting</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Smart Dashboard</h3>
+                    <p>Intuitive visualization of all system metrics</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hardware Section -->
+    <section id="hardware" class="hardware">
+        <div class="container">
+            <h2 class="section-title">Hardware Components</h2>
+            <p class="section-subtitle">Low-cost, scalable IoT architecture</p>
+
+            <div class="components-grid">
+                <div class="component-card">
+                    <h3>ESP32 Microcontroller</h3>
+                    <p>Data collection and Wi-Fi communication hub</p>
+                </div>
+                <div class="component-card">
+                    <h3>Raspberry Pi 4</h3>
+                    <p>Data storage, visualization, and analysis platform</p>
+                </div>
+                <div class="component-card">
+                    <h3>Smart Energy Meter</h3>
+                    <p>Measures real-time power usage with CT clamp sensor</p>
+                </div>
+                <div class="component-card">
+                    <h3>CO₂ Sensor</h3>
+                    <p>Monitors indoor air quality continuously</p>
+                </div>
+                <div class="component-card">
+                    <h3>Flow Sensors</h3>
+                    <p>Calculates cooling load and system efficiency</p>
+                </div>
+                <div class="component-card">
+                    <h3>Temperature Sensors</h3>
+                    <p>Tracks ambient and refrigerant temperatures</p>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 3rem; font-size: 1.1rem;">
+                <p><strong>This low-cost educational prototype demonstrates a scalable approach to sustainable HVAC management.</strong></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Working Principle -->
+    <section class="working">
+        <div class="container">
+            <h2 class="section-title">How It Works</h2>
+            <p class="section-subtitle">Five-step intelligent monitoring process</p>
+
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Data Collection</h3>
+                        <p>Sensors continuously collect energy, temperature, and CO₂ data from the HVAC system.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Transmission</h3>
+                        <p>ESP32 transmits sensor readings to Raspberry Pi via Wi-Fi in real-time.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Processing</h3>
+                        <p>Raspberry Pi stores data and calculates energy-based carbon emissions.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>Visualization</h3>
+                        <p>Dashboard displays real-time performance metrics and carbon footprint analysis.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h3>Optimization</h3>
+                        <p>Control logic adjusts ventilation and cooling for maximum efficiency.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Impact Section -->
+    <section class="impact">
+        <div class="container">
+            <h2 class="section-title">Impact & Sustainability</h2>
+            <p class="section-subtitle">Making buildings smarter and greener</p>
+
+            <div class="impact-grid">
+                <div class="impact-card">
+                    <h3>15% Energy Reduction</h3>
+                    <p>Reduces HVAC energy consumption through intelligent monitoring and control</p>
+                </div>
+                <div class="impact-card">
+                    <h3>Real-time CO₂ Awareness</h3>
+                    <p>Provides immediate feedback for better indoor air quality management</p>
+                </div>
+                <div class="impact-card">
+                    <h3>SDG Alignment</h3>
+                    <p>Helps organizations achieve Sustainable Development Goals 7 & 13</p>
+                </div>
+                <div class="impact-card">
+                    <h3>Innovation Driver</h3>
+                    <p>Promotes smart building technology and carbon accountability</p>
+                </div>
+            </div>
+
+            <div class="inspiration">
+                <p>Inspired by Siemens' commitment to digital transformation and sustainable automation</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dashboard Preview -->
+    <section id="dashboard" class="dashboard">
+        <div class="container">
+            <h2 class="section-title">Dashboard Preview</h2>
+            <p class="section-subtitle">Real-time insights at your fingertips</p>
+
+            <div class="dashboard-mockup">
+                <div class="metrics-grid">
+                    <div class="metric">
+                        <div class="metric-value">12.4</div>
+                        <div class="metric-label">Energy (kWh)</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">625</div>
+                        <div class="metric-label">CO₂ Level (ppm)</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">8.7</div>
+                        <div class="metric-label">Carbon Footprint (kg CO₂)</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">23.5°C</div>
+                        <div class="metric-label">Temperature</div>
+                    </div>
+                </div>
+                <div class="dashboard-quote">
+                    "Real-time insight. Smarter control. Greener impact."
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team">
+        <div class="container">
+            <h2 class="section-title">Team & Credits</h2>
+            <div class="team-info">
+                <h3>Project Member</h3>
+                <p>Kshitij Navture</p>
+                <p>Siddhi Patil</p>
+                <p>Prithviraj Sarowar</p>
+                <h3>Institution</h3>
+                <p>JSPM Rajarshi Shahu college of engineering,Pune</p>
+                <h3>Supported By</h3>
+                <p>Dr.P.M.Ghate</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Request a Live Demo</h2>
+            <div class="contact-form">
+                <p style="margin-bottom: 2rem; font-size: 1.1rem;">Interested in learning more about our smart HVAC monitoring system?</p>
+                <button class="contact-btn" onclick="alert('Contact: [siddhipatil29@gmail.com] ')">Get in Touch</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Smart HVAC Carbon Emission Monitoring System. All rights reserved.</p>
+        <p>Building a sustainable future, one system at a time.</p>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add fade-in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(20px)';
+            section.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
